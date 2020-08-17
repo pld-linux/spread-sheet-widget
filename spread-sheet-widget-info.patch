@@ -1,0 +1,14 @@
+--- spread-sheet-widget-0.6/doc/spread-sheet-widget.texi.orig	2020-06-01 16:22:45.000000000 +0200
++++ spread-sheet-widget-0.6/doc/spread-sheet-widget.texi	2020-08-17 20:26:05.254632697 +0200
+@@ -14,9 +14,9 @@
+ 
+ @include version.texi
+ 
+-@dircategory Development
++@dircategory Libraries:
+ @direntry
+-* SpreadSheetWidget: (ssw).             A Spread Sheet Widget
++* SpreadSheetWidget: (ssw).		A Spread Sheet Widget
+ @end direntry
+ 
+ @copying

@@ -1,25 +1,28 @@
 #
 # Conditional build:
-%bcond_without	static_libs	# don't build static libraries
+%bcond_without	static_libs	# static library
 #
 Summary:	Library for Gtk+ which provides a widget for viewing and manipulating 2 dimensional tabular data
 Summary(pl.UTF-8):	Biblioteka Gtk+ zapewniająca widget do przeglądania i manipulowania dwuwymiarowymi danymi tabelarycznymi
 Name:		spread-sheet-widget
-Version:	0.3
-Release:	3
+Version:	0.6
+Release:	1
 License:	GPL v3+
 Group:		Libraries
 Source0:	http://alpha.gnu.org/gnu/ssw/%{name}-%{version}.tar.gz
-# Source0-md5:	9bd94714a18229eb9e9a2b79dda30e1f
+# Source0-md5:	1db047605eedb0b63f7a34422a7889c6
 Patch0:		%{name}-am.patch
+Patch1:		%{name}-info.patch
 URL:		https://www.gnu.org/software/ssw/
-BuildRequires:	autoconf
-BuildRequires:	automake
+BuildRequires:	autoconf >= 2.50
+BuildRequires:	automake >= 1:1.10.1
 BuildRequires:	glib2-devel >= 1:2.44
 BuildRequires:	gtk+3-devel >= 3.18.0
-BuildRequires:	intltool
-BuildRequires:	libtool
+BuildRequires:	libtool >= 2:2
+BuildRequires:	pkgconfig
 BuildRequires:	texinfo
+Requires:	glib2 >= 1:2.44
+Requires:	gtk+3 >= 3.18.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -41,7 +44,7 @@ sposób zbliżony do wielu popularnych programów do obsługi arkuszy
 kalkulacyjnych.
 
 Projekt jest zgodny z paradygmatem model-widok-kontroler i ma
-złożoność O (1) w czasie i przestrzeni. Oznacza to, że jest wydajny
+złożoność O(1) w czasie i przestrzeni. Oznacza to, że jest wydajny
 nawet dla bardzo dużych zestawów danych.
 
 Funkcje często spotykane w graficznych interfejsach użytkownika, takie
@@ -53,6 +56,8 @@ Summary:	Header files for %{name} library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki %{name}
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	glib2-devel >= 1:2.44
+Requires:	gtk+3-devel >= 3.18.0
 
 %description devel
 Header files for %{name} library.
@@ -75,6 +80,7 @@ Statyczna biblioteka %{name}.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -91,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+# obsoleted by pkg-config
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libspread-sheet-widget.la
 
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 
@@ -115,12 +124,12 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libspread-sheet-widget.so
-%{_libdir}/libspread-sheet-widget.la
 %{_includedir}/ssw-axis-model.h
 %{_includedir}/ssw-sheet-axis.h
 %{_includedir}/ssw-sheet.h
-%{_pkgconfigdir}/%{name}.pc
-%{_infodir}/%{name}.info*
+%{_includedir}/ssw-virtual-model.h
+%{_pkgconfigdir}/spread-sheet-widget.pc
+%{_infodir}/spread-sheet-widget.info*
 
 %if %{with static_libs}
 %files static

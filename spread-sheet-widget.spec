@@ -5,12 +5,12 @@
 Summary:	Library for Gtk+ which provides a widget for viewing and manipulating 2 dimensional tabular data
 Summary(pl.UTF-8):	Biblioteka Gtk+ zapewniająca widget do przeglądania i manipulowania dwuwymiarowymi danymi tabelarycznymi
 Name:		spread-sheet-widget
-Version:	0.8
+Version:	0.10
 Release:	1
 License:	GPL v3+
 Group:		Libraries
 Source0:	http://alpha.gnu.org/gnu/ssw/%{name}-%{version}.tar.gz
-# Source0-md5:	429ab7326a95f237c680d770c226a7c0
+# Source0-md5:	df5f0dbb29da0a8fb573d0dc52aead59
 Patch0:		%{name}-info.patch
 URL:		https://www.gnu.org/software/ssw/
 BuildRequires:	autoconf >= 2.50
